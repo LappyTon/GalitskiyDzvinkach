@@ -31,8 +31,8 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link disabled">093-123-45-67</a></li>
-        <li class="nav-item"><a class="nav-link" href="assortment.html">Асортимент</a></li>
+        <li class="nav-item"><a class="nav-link disabled"; style="color: #ffffff;">093-123-45-67</a></li>
+        <li class="nav-item"><a class="nav-link active" href="assortment.html">Асортимент</a></li>
         <li class="nav-item"><a class="nav-link" href="types.html">Типи цегли</a></li>
         <li class="nav-item"><a class="nav-link" href="musieum.html">Інтернет-музей</a></li>
       </ul>
@@ -118,7 +118,7 @@
 
 <div class="col" v-for="p in filteredProducts" :key="p.id">
   <div class="card h-100">
-    <img :src="p.img" class="card-img-top">
+    <img src="img/1.jpg" class="card-img-top">
 
     <div class="card-body">
       <h5>{{ p.name }}</h5>
