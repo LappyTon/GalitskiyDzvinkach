@@ -130,7 +130,7 @@ mounted() {
 computed: {
   currentImageSrc() {
     if (!this.product || !this.product.images) return "";
-    return "./img/" + this.product.images[this.index];
+    return "img/" + this.product.images[this.index];
   }
 },
 
