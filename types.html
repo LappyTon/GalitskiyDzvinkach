@@ -89,6 +89,31 @@ main {
   border-radius: 0;
 }
 
+
+
+.fixed-btn{
+    width:56px;
+    height:56px;
+    border:none;
+    border-radius:50%;
+    background:#fff;
+    font-size:24px;
+    box-shadow:
+      0 4px 12px rgba(0,0,0,.08),
+      0 2px 4px rgba(0,0,0,.06);
+    transition:.25s;
+}
+
+.fixed-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:
+      0 8px 24px rgba(0,0,0,.12),
+      0 4px 8px rgba(0,0,0,.08);
+}
+
+
+
+
 .carousel,
 .carousel-inner,
 .carousel-item{
@@ -263,220 +288,85 @@ h2, h3 {
     <h1 class="mb-5">
       Бувають такі типи цегли:
     </h1>
+<div id="brickApp" class="section text-center">
 
-    <h1 class="display-5 fw-bold">
-      Савєтска цегла
-    </h1>
-    
-    
-  <div id="brickSlider" class="carousel slide my-5" data-bs-ride="carousel">
+  <div class="d-flex justify-content-between align-items-center mb-4 px-3">
 
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#brickSlider" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#brickSlider" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#brickSlider" data-bs-slide-to="2"></button>
-  </div>
+    <button
+      class="btn btn-outline-dark btn-sm fixed-btn"
+      @click="prevType">
+      &lt;
+    </button>
 
-  <div class="carousel-inner">
-
-    <div class="carousel-item active">
-      <img src="img/soviet_1.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_2.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_3.png" class="d-block w-100 slider-img">
-    </div>
-
-  </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#brickSlider" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <button class="carousel-control-next" type="button" data-bs-target="#brickSlider" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-
-
-  </div>
-
-    <h2 class="mb-5">
-      Вона лайно.
+    <h2 class="mb-0 fw-bold text-center flex-grow-1">
+      {{ current.title }}
     </h2>
 
-    <h1 class="display-5 fw-bold">
-      Вишнева цегла
-    </h1>
-
-  <div id="red_brickSlider" class="carousel slide my-5" data-bs-ride="carousel">
-
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#red_brickSlider" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#red_brickSlider" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#red_brickSlider" data-bs-slide-to="2"></button>
-  </div>
-
-  <div class="carousel-inner">
-
-    <div class="carousel-item active">
-      <img src="img/soviet_1.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_2.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_3.png" class="d-block w-100 slider-img">
-    </div>
+    <button
+      class="btn btn-outline-dark btn-sm fixed-btn"
+      @click="nextType">
+      &gt;
+    </button>
 
   </div>
 
-  <button class="carousel-control-prev" type="button" data-bs-target="#red_brickSlider" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
+  <p class="fs-4 mb-4">
+    {{ current.desc }}
+  </p>
 
-  <button class="carousel-control-next" type="button" data-bs-target="#red_brickSlider" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-  </div>
-    <h2 class="mb-5">
-      Вона відрізняється трам пам пам чимось тамось
-    </h2>
+  <div :id="current.id"
+       class="carousel slide my-4"
+       data-bs-ride="carousel">
 
-    <h1 class="display-5 fw-bold">
-      Жовта цегла
-    </h1>
+    <div class="carousel-indicators">
 
-  <div id="yellow_brickSlider" class="carousel slide my-5" data-bs-ride="carousel">
+      <button
+        v-for="(img, i) in current.images"
+        :key="i"
+        type="button"
+        :data-bs-target="'#' + current.id"
+        :data-bs-slide-to="i"
+        :class="{ active: i === 0 }">
+      </button>
 
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#yellow_brickSlider" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#yellow_brickSlider" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#yellow_brickSlider" data-bs-slide-to="2"></button>
-  </div>
-
-  <div class="carousel-inner">
-
-    <div class="carousel-item active">
-      <img src="img/soviet_1.png" class="d-block w-100 slider-img">
     </div>
 
-    <div class="carousel-item">
-      <img src="img/soviet_2.png" class="d-block w-100 slider-img">
+    <div class="carousel-inner">
+
+      <div
+        v-for="(img, i) in current.images"
+        :key="img"
+        class="carousel-item"
+        :class="{ active: i === 0 }">
+
+        <img :src="img" class="d-block w-100 slider-img">
+
+      </div>
+
     </div>
 
-    <div class="carousel-item">
-      <img src="img/soviet_3.png" class="d-block w-100 slider-img">
-    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      :data-bs-target="'#' + current.id"
+      data-bs-slide="prev">
 
-  </div>
+      <span class="carousel-control-prev-icon"></span>
 
-  <button class="carousel-control-prev" type="button" data-bs-target="#yellow_brickSlider" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
+    </button>
 
-  <button class="carousel-control-next" type="button" data-bs-target="#yellow_brickSlider" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      :data-bs-target="'#' + current.id"
+      data-bs-slide="next">
 
+      <span class="carousel-control-next-icon"></span>
 
-  </div>
-    <h2 class="mb-5">
-      Вона відрізняється трам пам пам чимось тамось
-    </h2>
-
-    <h1 class="display-5 fw-bold">
-      Біла цегла
-    </h1>
-
-
-  <div id="white_brickSlider" class="carousel slide my-5" data-bs-ride="carousel">
-
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#white_brickSlider" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#white_brickSlider" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#white_brickSlider" data-bs-slide-to="2"></button>
-  </div>
-
-  <div class="carousel-inner">
-
-    <div class="carousel-item active">
-      <img src="img/soviet_1.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_2.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_3.png" class="d-block w-100 slider-img">
-    </div>
+    </button>
 
   </div>
 
-  <button class="carousel-control-prev" type="button" data-bs-target="#white_brickSlider" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <button class="carousel-control-next" type="button" data-bs-target="#white_brickSlider" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-
-
-  </div>
-
-
-    <h2 class="mb-5">
-      Вона відрізняється трам пам пам чимось тамось
-    </h2>
-
-    <h1 class="display-5 fw-bold">
-      Чорна цегла
-    </h1>
-
-  <div id="blackBrickSlider" class="carousel slide my-5" data-bs-ride="carousel">
-
-<div class="carousel-indicators">
-    <button type="button" data-bs-target="#blackBrickSlider" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#blackBrickSlider" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#blackBrickSlider" data-bs-slide-to="2"></button>
-</div>
-
-  <div class="carousel-inner">
-
-    <div class="carousel-item active">
-      <img src="img/black_1.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/black_2.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/black_3.png" class="d-block w-100 slider-img">
-    </div>
-
-  </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#blackBrickSlider" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <button class="carousel-control-next" type="button" data-bs-target="#blackBrickSlider" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-
-
-  </div>
-
-    <h2>
-      Вона відрізняється трам пам пам чимось тамось
-    </h2>
 </div>
 <div class="section text-center">
 
@@ -498,196 +388,82 @@ h2, h3 {
   <h2 class="mt-5 mb-5">
     Найвідоміші штампи
   </h2>
+<div class="section text-center">
 
-  <!-- PEZET -->
-  <div class="my-5">
-    <h1 class="display-4 fw-bold">
-      PEZET
+  <div class="d-flex justify-content-between align-items-center mb-4 px-3">
+
+    <button class="fixed-btn" @click="prevStamp">
+      ←
+    </button>
+
+    <h1 class="display-4 fw-bold mb-0">
+      {{ currentStamp.title }}
     </h1>
 
-    <h2 class="mb-5">
-      Один із найвідоміших штампів, який часто трапляється на галицькій цеглі.
-    </h2>
+    <button class="fixed-btn" @click="nextStamp">
+      →
+    </button>
 
-    
-  <div id="pezet_brickSlider" class="carousel slide my-5" data-bs-ride="carousel">
-
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#pezet_brickSlider" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#pezet_brickSlider" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#pezet_brickSlider" data-bs-slide-to="2"></button>
   </div>
 
-  <div class="carousel-inner">
+  <h2 class="mb-5">
+    {{ currentStamp.desc }}
+  </h2>
 
-    <div class="carousel-item active">
-      <img src="img/soviet_1.png" class="d-block w-100 slider-img">
+  <div :id="currentStamp.id"
+       class="carousel slide my-5"
+       data-bs-ride="carousel">
+
+    <div class="carousel-indicators">
+
+      <button
+        v-for="(img, i) in currentStamp.images"
+        :key="i"
+        type="button"
+        :data-bs-target="'#' + currentStamp.id"
+        :data-bs-slide-to="i"
+        :class="{ active: i === 0 }">
+      </button>
+
     </div>
 
-    <div class="carousel-item">
-      <img src="img/soviet_2.png" class="d-block w-100 slider-img">
+    <div class="carousel-inner">
+
+      <div
+        v-for="(img, i) in currentStamp.images"
+        :key="img"
+        class="carousel-item"
+        :class="{ active: i === 0 }">
+
+        <img :src="img" class="d-block w-100 slider-img">
+
+      </div>
+
     </div>
 
-    <div class="carousel-item">
-      <img src="img/soviet_3.png" class="d-block w-100 slider-img">
-    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      :data-bs-target="'#' + currentStamp.id"
+      data-bs-slide="prev">
+
+      <span class="carousel-control-prev-icon"></span>
+
+    </button>
+
+    <button
+      class="carousel-control-next"
+      type="button"
+      :data-bs-target="'#' + currentStamp.id"
+      data-bs-slide="next">
+
+      <span class="carousel-control-next-icon"></span>
+
+    </button>
 
   </div>
 
-  <button class="carousel-control-prev" type="button" data-bs-target="#pezet_brickSlider" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <button class="carousel-control-next" type="button" data-bs-target="#pezet_brickSlider" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-
-
-  </div>
-  </div>
-
-  <!-- ZUPAN -->
-  <div class="my-5">
-    <h1 class="display-4 fw-bold">
-      ZUPAN
-    </h1>
-
-    <h2 class="mb-5">
-      Популярний виробник, вироби якого можна зустріти в багатьох історичних будівлях.
-    </h2>
-
-    
-  <div id="zupan_brickSlider" class="carousel slide my-5" data-bs-ride="carousel">
-
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#zupan_brickSlider" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#zupan_brickSlider" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#zupan_brickSlider" data-bs-slide-to="2"></button>
-  </div>
-
-  <div class="carousel-inner">
-
-    <div class="carousel-item active">
-      <img src="img/soviet_1.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_2.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_3.png" class="d-block w-100 slider-img">
-    </div>
-
-  </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#zupan_brickSlider" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <button class="carousel-control-next" type="button" data-bs-target="#zupan_brickSlider" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-
-
-  </div>
-
-  </div>
-
-  <!-- SYGNOVKA -->
-  <div class="my-5">
-    <h1 class="display-4 fw-bold">
-      SYGNOVKA
-    </h1>
-
-    <h2 class="mb-5">
-      Відомий штамп, що став впізнаваним серед колекціонерів старовинної цегли.
-    </h2>
-
-    
-  <div id="sygnovka_brickSlider" class="carousel slide my-5" data-bs-ride="carousel">
-
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#sygnovka_brickSlider" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#sygnovka_brickSlider" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#sygnovka_brickSlider" data-bs-slide-to="2"></button>
-  </div>
-
-  <div class="carousel-inner">
-
-    <div class="carousel-item active">
-      <img src="img/soviet_1.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_2.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_3.png" class="d-block w-100 slider-img">
-    </div>
-
-  </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#sygnovka_brickSlider" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <button class="carousel-control-next" type="button" data-bs-target="#sygnovka_brickSlider" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-
-
-  </div>
-
-  </div>
-
-  <!-- REISS -->
-  <div class="my-5">
-    <h1 class="display-4 fw-bold">
-      REISS
-    </h1>
-
-    <h2 class="mb-5">
-      Ще один легендарний виробник, чию продукцію можна знайти на багатьох старих спорудах.
-    </h2>
-
-    
-  <div id="reiss_brickSlider" class="carousel slide my-5" data-bs-ride="carousel">
-
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#reiss_brickSlider" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#reiss_brickSlider" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#reiss_brickSlider" data-bs-slide-to="2"></button>
-  </div>
-
-  <div class="carousel-inner">
-
-    <div class="carousel-item active">
-      <img src="img/soviet_1.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_2.png" class="d-block w-100 slider-img">
-    </div>
-
-    <div class="carousel-item">
-      <img src="img/soviet_3.png" class="d-block w-100 slider-img">
-    </div>
-
-  </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#reiss_brickSlider" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-
-  <button class="carousel-control-next" type="button" data-bs-target="#reiss_brickSlider" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
-
-
-  
-  </div>
+</div>
   <div class="section">
 
   <h1 class="display-5 fw-bold text-center">
@@ -878,67 +654,6 @@ h2, h3 {
     </div>
 </div>
 
-<div id="brickApp" class="section text-center">
-
-  <div class="d-flex justify-content-between align-items-center mb-4 px-3">
-
-    <button class="btn btn-outline-dark btn-sm fixed-btn"
-            @click="prevType">
-        &lt;
-    </button>
-
-    <h2 class="mb-0 fw-bold text-center flex-grow-1">
-        {{ current.title }}
-    </h2>
-
-    <button class="btn btn-outline-dark btn-sm fixed-btn"
-            @click="nextType">
-        &gt;
-    </button>
-
-</div>
-    <p class="text-muted fs-5 mb-4">
-        {{ current.desc }}
-    </p>
-
-    <!-- SLIDER -->
-    <div :id="current.id" class="carousel slide my-4" data-bs-ride="carousel">
-
-        <div class="carousel-indicators">
-            <button
-                v-for="(img, i) in current.images"
-                :key="i"
-                type="button"
-                :data-bs-target="'#' + current.id"
-                :data-bs-slide-to="i"
-                :class="{ active: i === 0 }">
-            </button>
-        </div>
-
-        <div class="carousel-inner">
-
-            <div
-                v-for="(img, i) in current.images"
-                :key="img"
-                class="carousel-item"
-                :class="{ active: i === 0 }">
-
-                <img :src="img" class="d-block w-100 slider-img">
-            </div>
-
-        </div>
-
-        <button class="carousel-control-prev" type="button" :data-bs-target="'#' + current.id" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-
-        <button class="carousel-control-next" type="button" :data-bs-target="'#' + current.id" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
-
-    </div>
-
-</div>
 
 </div>
 </div>
@@ -987,6 +702,8 @@ h2, h3 {
 </footer>
 
 </div>
+
+
 <script>
 const { createApp } = Vue;
 
@@ -996,12 +713,13 @@ createApp({
       selected: "Цегла",
 
       index: 0,
+      stampIndex: 0,
 
       types: [
         {
           id: "sovietBrick",
-          title: "САВЄТСЬКА ЦЕГЛА",
-          desc: "Масова цегла радянського періоду.",
+          title: "Савєтська цегла",
+          desc: "Вона лайно.",
           images: [
             "img/soviet_1.png",
             "img/soviet_2.png",
@@ -1009,13 +727,86 @@ createApp({
           ]
         },
         {
+          id: "redBrick",
+          title: "Вишнева цегла",
+          desc: "Вона відрізняється трам пам пам чимось тамось.",
+          images: [
+            "img/red_1.png",
+            "img/red_2.png",
+            "img/red_3.png"
+          ]
+        },
+        {
+          id: "yellowBrick",
+          title: "Жовта цегла",
+          desc: "Вона відрізняється трам пам пам чимось тамось.",
+          images: [
+            "img/yellow_1.png",
+            "img/yellow_2.png",
+            "img/yellow_3.png"
+          ]
+        },
+        {
+          id: "whiteBrick",
+          title: "Біла цегла",
+          desc: "Вона відрізняється трам пам пам чимось тамось.",
+          images: [
+            "img/white_1.png",
+            "img/white_2.png",
+            "img/white_3.png"
+          ]
+        },
+        {
           id: "blackBrick",
-          title: "ЧОРНА ЦЕГЛА",
-          desc: "Темна щільна цегла для промислових споруд.",
+          title: "Чорна цегла",
+          desc: "Вона відрізняється трам пам пам чимось тамось.",
           images: [
             "img/black_1.png",
             "img/black_2.png",
             "img/black_3.png"
+          ]
+        }
+      ],
+
+      stamps: [
+        {
+          id: "pezetStamp",
+          title: "PEZET",
+          desc: "Один із найвідоміших штампів.",
+          images: [
+            "img/pezet_1.png",
+            "img/pezet_2.png",
+            "img/pezet_3.png"
+          ]
+        },
+        {
+          id: "zupanStamp",
+          title: "ZUPAN",
+          desc: "Популярний виробник.",
+          images: [
+            "img/zupan_1.png",
+            "img/zupan_2.png",
+            "img/zupan_3.png"
+          ]
+        },
+        {
+          id: "sygnovkaStamp",
+          title: "SYGNOVKA",
+          desc: "Відомий штамп.",
+          images: [
+            "img/sygnovka_1.png",
+            "img/sygnovka_2.png",
+            "img/sygnovka_3.png"
+          ]
+        },
+        {
+          id: "reissStamp",
+          title: "REISS",
+          desc: "Легендарний виробник.",
+          images: [
+            "img/reiss_1.png",
+            "img/reiss_2.png",
+            "img/reiss_3.png"
           ]
         }
       ]
@@ -1025,6 +816,10 @@ createApp({
   computed: {
     current() {
       return this.types[this.index];
+    },
+
+    currentStamp() {
+      return this.stamps[this.stampIndex];
     }
   },
 
@@ -1032,12 +827,29 @@ createApp({
     nextType() {
       this.index = (this.index + 1) % this.types.length;
     },
+
     prevType() {
-      this.index = (this.index - 1 + this.types.length) % this.types.length;
+      this.index =
+        (this.index - 1 + this.types.length) %
+        this.types.length;
+    },
+
+    nextStamp() {
+      this.stampIndex =
+        (this.stampIndex + 1) % this.stamps.length;
+    },
+
+    prevStamp() {
+      this.stampIndex =
+        (this.stampIndex - 1 + this.stamps.length) %
+        this.stamps.length;
     }
   }
 }).mount('#app');
 </script>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
