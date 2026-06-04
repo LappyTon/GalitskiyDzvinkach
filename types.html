@@ -175,6 +175,13 @@ h2, h3 {
           drop-shadow(0 -1px 0 black) 
           drop-shadow(0 1px 0 black);
 }
+#brickApp h2 {
+  margin: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
 </head>
 
@@ -298,7 +305,7 @@ h2, h3 {
       &lt;
     </button>
 
-    <h2 class="mb-0 fw-bold text-center flex-grow-1">
+    <h2 class="display-4 fw-bold mb-0">
       {{ current.title }}
     </h2>
 
